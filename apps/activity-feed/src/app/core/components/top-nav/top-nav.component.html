@@ -1,0 +1,14 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+      <a class="navbar-brand align-content-top" routerLink="/">Activity Feed</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><fa-icon class="ml-1" [icon]="faBars"></fa-icon></button>
+      <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
+          <ul class="navbar-nav ml-auto" *ngIf="(authState$ | async) as auth">
+              <li class="nav-item"><a class="nav-link pointer">Hello, {{auth.user.name}}</a></li>
+              <!--<li class="nav-item" *ngIf="auth.user.picture">
+                <img [src]="auth.user.picture" alt="User's profile picture" class="rounded-circle img-fluid profile-picture h-50"/></li> -->
+              <li class="nav-item"><a class="nav-link pointer btn btn-small">Logout</a></li>
+          </ul>
+      </div>
+  </div>
+</nav>

@@ -1,0 +1,17 @@
+  <activity-feed-top-nav></activity-feed-top-nav>
+  <main class="container mt-5">
+    <section *ngIf="loading || (auth.isLoading$ | async)" class="row justify-content-center">
+      <activity-feed-spinner></activity-feed-spinner>
+    </section>
+    <section *ngIf="!loading">
+    <div *ngIf="appState.auth.isAuthenticated">
+      <activity-feed-posts-container></activity-feed-posts-container>
+    </div>
+    <div *ngIf="!appState.auth.isAuthenticated">
+      <activity-feed-login></activity-feed-login>
+    </div>
+  </section>
+  </main>
+  <footer></footer>
+
+
