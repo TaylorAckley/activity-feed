@@ -1,3 +1,4 @@
+import { Post } from '@activity-feed/api-interfaces';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./posts-container.component.scss']
 })
 export class PostsContainerComponent implements OnInit {
-
+  posts: Array<Post> = [];
   constructor() { }
 
   ngOnInit(): void {

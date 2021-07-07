@@ -1,9 +1,9 @@
-import { Module } from '@nestjs/common';
+import { HttpModule, Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './jwt.strategy';
 
 @Module({
-  imports: [PassportModule.register({ defaultStrategy: 'jwt' })],
+  imports: [PassportModule.register({ defaultStrategy: 'jwt'}), HttpModule],
   providers: [JwtStrategy],
   exports: [PassportModule],
 })

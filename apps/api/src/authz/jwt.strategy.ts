@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpService, Injectable, Req } from '@nestjs/common';
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { passportJwtSecret } from 'jwks-rsa';
@@ -8,8 +8,9 @@ dotenv.config();
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-  constructor() {
+  constructor(private httpService: HttpService) {
     super({
+      passReqToCallback: true,
       secretOrKeyProvider: passportJwtSecret({
         cache: true,
         rateLimit: true,
@@ -21,10 +22,13 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       audience: process.env.AUTH0_AUDIENCE,
       issuer: `${process.env.AUTH0_ISSUER_URL}`,
       algorithms: ['RS256'],
-    });
+    }
+
+    );
   }
 
-  validate(payload: unknown): unknown {
-    return payload;
+  async validate(request: Request, payload: unknown): Promise<unknown> {
+    const res = await this.httpService.get(`${process.env.AUTH0_ISSUER_URL}userinfo`, {  headers: {  'Authorization': `${request.headers['authorization']}`   } }).toPromise();
+    return res.data ?? payload;
   }
 }

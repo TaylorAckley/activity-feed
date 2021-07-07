@@ -1,1 +1,12 @@
 <h2>My Feed</h2>
+
+<div>
+  <activity-feed-new-post></activity-feed-new-post>
+</div>
+<div *ngIf="posts.length <= 0; else feed">
+  <activity-feed-no-posts></activity-feed-no-posts>
+</div>
+
+<ng-template #feed>
+  <activity-feed-feed></activity-feed-feed>
+</ng-template>

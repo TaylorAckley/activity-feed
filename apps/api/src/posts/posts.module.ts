@@ -1,6 +1,6 @@
-import { CommonModule } from '@angular/common';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AuthzModule } from '../authz/authz.module';
 import { Post, PostSchema } from './post.schema';
 import { PostsController } from './posts.controller';
 import { PostsService } from './posts.service';
@@ -11,7 +11,7 @@ import { PostsService } from './posts.service';
   controllers: [PostsController],
   providers: [PostsService],
   imports: [
-    CommonModule,
+    AuthzModule,
     MongooseModule.forFeature([{ name: Post.name, schema: PostSchema }])
   ]
 })

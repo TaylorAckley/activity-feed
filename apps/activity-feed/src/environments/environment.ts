@@ -10,7 +10,7 @@ export const environment = {
     domain: settings.domain,
     clientId: settings.clientId
   },
-  apiUrl: 'http://localhost:3333'
+  apiUrl: 'http://localhost:3333/api'
 };
 
 /*

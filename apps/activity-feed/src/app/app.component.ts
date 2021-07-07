@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
     )
       .subscribe(authData => this.setViewData(authData));
       this.$selectAppState.subscribe(appState => this.setState(appState))
-      this.auth.getAccessTokenSilently().subscribe(x => console.log(x))
+      //this.auth.getAccessTokenSilently().subscribe(x => console.log(x))
   }
 
 

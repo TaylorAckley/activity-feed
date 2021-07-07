@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { LoginComponent } from './core/components/login/login.component';
 import { LoginButtonComponent } from './core/components/login/login-button/login-button.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +22,7 @@ import { NewPostComponent } from './core/components/posts/new-post/new-post.comp
 import { FeedComponent } from './core/components/posts/feed/feed.component';
 import { PostComponent } from './core/components/posts/post/post.component';
 import { PostsContainerComponent } from './core/components/posts/posts-container/posts-container.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -40,9 +41,17 @@ import { PostsContainerComponent } from './core/components/posts/posts-container
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     AuthModule.forRoot({
       domain: environment.auth.domain,
       clientId: environment.auth.clientId,
+      redirectUri: window.location.origin,
+      audience: 'localhost:4200',
+      httpInterceptor: {
+        allowedList: [
+          '*',
+        ]
+      }
     }),
     NgbModule,
     FontAwesomeModule,
@@ -58,7 +67,9 @@ import { PostsContainerComponent } from './core/components/posts/posts-container
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

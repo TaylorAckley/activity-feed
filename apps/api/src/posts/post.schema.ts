@@ -4,7 +4,7 @@ import * as mongoose from 'mongoose';
 
 export type PostDocument = Post & Document;
 
-@Schema()
+@Schema({  timestamps: {  createdAt: 'metadata.createdAt', updatedAt: 'metadata.updatedAt' }})
 export class Post {
   //@Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User'})
   @Prop()

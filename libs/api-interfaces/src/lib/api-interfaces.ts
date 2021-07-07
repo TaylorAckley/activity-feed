@@ -7,3 +7,7 @@ export interface User {
 export interface Post {
   text: string;
 }
+
+export interface CreatePostDto {
+  text: string;
+}
