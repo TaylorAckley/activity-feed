@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { User } from "@activity-feed/api-interfaces";
+import { IUser } from "@activity-feed/api-interfaces";
 import { AuthState } from "./auth.state";
 
 export enum AuthActions {
@@ -8,4 +8,4 @@ export enum AuthActions {
 }
 
 export const patchAuthState = createAction(AuthActions.PatchAuthState, props<{ newAuthState: AuthState }>());
-export const setUser = createAction(AuthActions.SetUser, props<{ user: User }>());
+export const setUser = createAction(AuthActions.SetUser, props<{ user: IUser }>());

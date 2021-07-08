@@ -1,13 +1,20 @@
-export interface User {
+export interface IUser {
+  sub: string;
   name: string;
   email: string;
   picture: string;
 }
 
-export interface Post {
+export interface IPost {
   text: string;
+  user?: IUser;
 }
 
 export interface CreatePostDto {
   text: string;
+  author: IUser;
+}
+
+export interface CreateUserDto {
+  id: string;
 }

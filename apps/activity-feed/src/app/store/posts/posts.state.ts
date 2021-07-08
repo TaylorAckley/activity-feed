@@ -1,4 +1,4 @@
-import { Post } from "@activity-feed/api-interfaces";
+import { IPost } from "@activity-feed/api-interfaces";
 
 export const initialPostsState: PostsState = {
   posts: [],
@@ -6,6 +6,6 @@ export const initialPostsState: PostsState = {
 }
 
 export interface PostsState {
-  posts: Array<Post>;
+  posts: Array<IPost>;
   loaded: boolean;
 }
