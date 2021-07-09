@@ -1,5 +1,6 @@
 import { IPost } from '@activity-feed/api-interfaces';
 import { Component, OnInit } from '@angular/core';
+import { PostsService } from '../../../services/posts.service';
 
 @Component({
   selector: 'activity-feed-posts-container',
@@ -8,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostsContainerComponent implements OnInit {
   posts: Array<IPost> = [];
-  constructor() { }
+  constructor(private postsService: PostsService) { }
 
   ngOnInit(): void {
+    this.fetchPosts();
+  }
+
+  fetchPosts() {
+    this.postsService.fetchAll().subscribe(posts => this.setPosts(posts))
+  }
+
+  setPosts(posts: IPost[]) {
+    this.posts = posts;
   }
 
 }

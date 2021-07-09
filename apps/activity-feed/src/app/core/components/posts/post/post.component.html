@@ -1,1 +1,16 @@
-<p>post works!</p>
+<div class="row">
+  <div class="col-2">
+    <img  [src]="post?.author?.picture" [alt]="post?.author?.name" class="rounded-circle img-fluid mx-auto">
+  </div>
+  <div class="col-10">
+    <h4 class="display-5">{{post?.author?.name}}</h4>
+    <p>{{post?.text}}</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <ul class="nav">
+      <li></li>
+    </ul>
+  </div>
+</div>

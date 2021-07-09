@@ -7,7 +7,7 @@ export interface IUser {
 
 export interface IPost {
   text: string;
-  user?: IUser;
+  author?: IUser;
 }
 
 export interface CreatePostDto {

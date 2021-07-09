@@ -16,8 +16,8 @@ export class PostsController {
   }
 
   @Get()
-  fetchAll() {
-    return {};
+  async fetchAll() {
+    return await this.postsService.fetchAll();
   }
 
 }

@@ -1,6 +1,4 @@
-<h2>My Feed</h2>
-
-<div>
+<div class="mt-3 mb-5">
   <activity-feed-new-post></activity-feed-new-post>
 </div>
 <div *ngIf="posts.length <= 0; else feed">
@@ -8,5 +6,5 @@
 </div>
 
 <ng-template #feed>
-  <activity-feed-feed></activity-feed-feed>
+  <activity-feed-feed [posts]="posts"></activity-feed-feed>
 </ng-template>

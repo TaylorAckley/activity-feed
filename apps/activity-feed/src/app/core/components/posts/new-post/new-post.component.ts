@@ -1,5 +1,6 @@
 import { CreatePostDto } from '@activity-feed/api-interfaces';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { PostsService } from '../../../services/posts.service';
 
 @Component({
@@ -9,18 +10,19 @@ import { PostsService } from '../../../services/posts.service';
 })
 export class NewPostComponent implements OnInit {
   text = '';
+  @Output() newPost = new EventEmitter();
+
   constructor(private postsService: PostsService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  onSubmit(f: NgForm) {
+      this.postsService.createPost({ text: this.text } as CreatePostDto).subscribe((res: any) => this.onNewPost())
   }
 
-  onSubmit(f: any) {
-   // this.auth.getAccessTokenSilently().subscribe(x => {
-      console.log(f);
-      //console.log(x);
-      this.postsService.createPost({ text: this.text } as CreatePostDto).subscribe((res: any) => console.log(res))
-  //  })
-
+  onNewPost() {
+    this.text = '';
+    this.newPost.emit();
   }
 
 }

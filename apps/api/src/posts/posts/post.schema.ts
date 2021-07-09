@@ -3,6 +3,7 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../users/user.schema';
 import { IPost } from '@activity-feed/api-interfaces';
+import { LinkRel } from '../../app/models/link';
 
 export type PostDocument = Post & Document;
 
@@ -15,3 +16,14 @@ export class Post implements IPost {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
+
+PostSchema.virtual('links').get(() => {
+  return [{ href: "http://", rel: LinkRel.self  }]
+});
+
+PostSchema.virtual('actions').get(() => {
+  return [{ href: "http://", rel: LinkRel.self  }]
+})
+
+PostSchema.set('toObject', { getters: true, virtuals: true });
+PostSchema.set('toJSON', { getters: true, virtuals: true });
