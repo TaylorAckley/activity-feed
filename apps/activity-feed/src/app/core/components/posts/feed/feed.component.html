@@ -1,3 +1,5 @@
 <ul class="list-group" *ngFor="let p of posts">
-  <li class="list-group-item" [@flyInOut]="'in'"><activity-feed-post [post]="p"></activity-feed-post></li>
+  <li class="list-group-item" [@flyInOut]="'in'">
+    <activity-feed-post [post]="p"></activity-feed-post>
+  </li>
 </ul>

@@ -12,7 +12,6 @@ export class PostsService {
 
   async create(author: IUser, createPostDto: CreatePostDto) {
     const user = await this.usersService.upsertUser(author);
-    console.log(user.toJSON());
     const createdPost = new this.postModel(createPostDto);
     createdPost.author = user;
     return await createdPost.save();
@@ -22,7 +21,11 @@ export class PostsService {
     return await this.postModel.findById(id);
   }
 
+  async deleteById(id: string) {
+    return await this.postModel.deleteOne({  _id: id });
+  }
+
   async fetchAll() {
-    return await this.postModel.find().populate('author').sort({ createdAt: -1 });
+    return await this.postModel.find().populate('author').sort({ createdAt: 1 });
   }
 }

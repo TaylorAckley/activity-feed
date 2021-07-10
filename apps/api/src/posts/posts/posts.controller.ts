@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreatePostDto } from '@activity-feed/api-interfaces';
@@ -18,6 +18,16 @@ export class PostsController {
   @Get()
   async fetchAll() {
     return await this.postsService.fetchAll();
+  }
+
+  @Get(':id')
+  async getPost(@Param('id') id: string) {
+    return await this.postsService.findById(id);
+  }
+
+  @Delete(':id')
+  async deletePost(@Param('id') id: string) {
+    return await this.postsService.deleteById(id);
   }
 
 }
