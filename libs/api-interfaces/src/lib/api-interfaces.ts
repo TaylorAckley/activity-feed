@@ -6,15 +6,28 @@ export interface IUser {
 }
 
 export interface IPost {
+  _id?: any;
+  id?: string;
+  text: string;
+  author?: IUser;
+  likes: Array<unknown>;
+  comments: Array<unknown>;
+  isComment: boolean;
+}
+
+interface IBaseDto {
+  id: string;
+}
+
+interface IBasePostDto {
   text: string;
   author?: IUser;
 }
 
-export interface CreatePostDto {
-  text: string;
-  author: IUser;
-}
+export type CreatePostDto = IBasePostDto;
 
-export interface CreateUserDto {
-  id: string;
-}
+export type CreateUserDto = IBaseDto;
+
+export type CreateCommentDto = IBaseDto & IBasePostDto;
+
+export type UpdateCommentDto = IBaseDto & IBasePostDto;

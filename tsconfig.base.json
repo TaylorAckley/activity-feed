@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@activity-feed/api-interfaces": ["libs/api-interfaces/src/index.ts"]
+      "@activity-feed/api-interfaces": ["libs/api-interfaces/src/index.ts"],
+      "@api/models/*": ["apps/api/src/app/models"]
     },
     "resolveJsonModule": true
   },
