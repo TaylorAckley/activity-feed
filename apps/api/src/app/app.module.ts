@@ -3,7 +3,8 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PostsModule } from '../posts/posts.module';
 import { AuthzModule } from '../authz/authz.module';
-
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 
 @Module({
@@ -18,7 +19,10 @@ import { AuthzModule } from '../authz/authz.module';
       }),
       inject: [ConfigService],
   }),
-
+  ServeStaticModule.forRoot({
+    rootPath: join(__dirname, '..', 'activity-feed'),
+    exclude: [],
+  })
 ],
   controllers: [],
   providers: [],

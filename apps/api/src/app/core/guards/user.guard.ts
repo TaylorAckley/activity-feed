@@ -7,7 +7,7 @@ export class UserGuard implements CanActivate {
   constructor(private postsService: PostsService) { }
   async canActivate(
     context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
+  ) {
     const ctx = context.switchToHttp().getRequest();
     console.log(ctx.params);
     console.log(ctx.user);
