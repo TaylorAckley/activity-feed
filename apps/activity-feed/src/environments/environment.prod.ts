@@ -6,5 +6,5 @@ export const environment = {
     domain: settings.domain,
     clientId: settings.clientId
   },
-  apiUrl: 'https://ta-activity-feed.digitalocean.com/api'
+  apiUrl: 'https://ta-activity-feed-u6j4y.ondigitalocean.app/api'
 };
