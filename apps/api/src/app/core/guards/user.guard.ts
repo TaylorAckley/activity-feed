@@ -5,23 +5,18 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class UserGuard implements CanActivate {
   constructor(private postsService: PostsService) { }
-  canActivate(
+  async canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const args = context.getArgs();
-    console.log(args);
     const ctx = context.switchToHttp().getRequest();
     console.log(ctx.params);
     console.log(ctx.user);
     const id = ctx.params?.id ?? null;
     if(id) {
-      return this.postsService.findById(id).map(post => {
-        if(post && post.user.sub === ctx.user.sub) {
-          return true;
-        } else {
-          return false;
-        }
-      });
+      const post = await this.postsService.findById(id);
+      if(!post) return true;
+      if(post && post.author.sub === ctx.user.sub) return true;
+      return false;
     } else {
       return true;
     }
