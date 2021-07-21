@@ -1,0 +1,8 @@
+<article [id]="'comment_' + comment._id" class="comment row">
+  <aside class="col-2 comment-author">
+    <img  [src]="comment?.author?.picture" [alt]="comment?.author?.name" class="rounded-circle img-fluid mx-auto avatar-comment">
+  </aside>
+  <div class="col-10 comment-text">
+    {{  comment?.text }}
+  </div>
+</article>

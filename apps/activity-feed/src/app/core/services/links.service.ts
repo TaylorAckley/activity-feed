@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { ILink, LinkRel } from '@api/models/link';
+import { Injectable } from '@angular/core';
+import { ILink } from '@activity-feed/api-interfaces';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,11 +10,19 @@ export class LinksService {
 
   constructor(private http: HttpClient) { }
 
+  /** Dispatch Stub
+   *  In a real world, this would be switch like dictionary lookup on the LinkRel and handle as needed.
+   *  However we only need to do XHR calls so we simply call the XHR function.
+   *
+   */
   dispatch(link: ILink, payload?: any) {
     return this.xhr(link, payload);
   }
 
-  xhr(link: ILink, payload?: any) {
-    return this.http.request(link.href, link.httpMethod, payload ? {  body: payload } : {});
+  /** XHR
+   * Use the provided link to call the API.
+   */
+  xhr(link: ILink, payload?: any): Observable<any> {
+    return this.http.request(link.httpMethod, link.href, payload ? { body: payload } : {});
   }
 }

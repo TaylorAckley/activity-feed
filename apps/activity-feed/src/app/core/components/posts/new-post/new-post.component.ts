@@ -17,11 +17,11 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(f: NgForm) {
-      this.postsService.createPost({ text: this.text } as CreatePostDto).subscribe((res: any) => this.onNewPost())
+      this.postsService.createPost({ text: this.text } as CreatePostDto).subscribe((res: any) => this.onNewPost(f))
   }
 
-  onNewPost() {
-    this.text = '';
+  onNewPost(f: NgForm) {
+    f.resetForm();
     this.newPost.emit();
   }
 

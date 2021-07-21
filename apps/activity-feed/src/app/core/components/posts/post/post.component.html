@@ -1,16 +1,35 @@
-<div class="row">
-  <div class="col-2">
-    <img  [src]="post?.author?.picture" [alt]="post?.author?.name" class="rounded-circle img-fluid mx-auto">
+<article class="row post shadow py-3" [id]="'post_'+post.id">
+  <aside class="col-2 d-flex align-content-center flex-column post-aside">
+    <img  [src]="post?.author?.picture" [alt]="post?.author?.name" class="rounded-circle img-fluid mx-auto avatar">
+    <small class="d-block w-100 text-muted" id="post-timestamp">{{  post?.metadata?.createdAt | date: 'medium' }}</small>
+  </aside>
+  <div class="col-10 post-body">
+    <div class="row">
+      <div class="col-11 post-header">
+        <h4 class="display-5">{{post?.author?.name}}</h4>
+      </div>
+      <div class="col-1 d-flex justify-content-end" id="post-actions">
+        ...
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 post-text">
+        <p>{{post?.text}}</p>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center new-comment-section" [id]="'post_new_comment_'+post.id">
+      <div class="col-10">
+        <!--<ul class="nav">
+          <li><button>Add Comment</button></li>
+        </ul> -->
+        <activity-feed-new-comment (newComment)="refetchSelf()" [post]="post"></activity-feed-new-comment>
+      </div>
+    </div>
+    <div class="row d-flex justify-content-center post-comments" [id]="'comment_container_'+post.id">
+      <div class="col-10">
+        <activity-feed-comment-container [post]="post"></activity-feed-comment-container>
+      </div>
+    </div>
   </div>
-  <div class="col-10">
-    <h4 class="display-5">{{post?.author?.name}}</h4>
-    <p>{{post?.text}}</p>
-  </div>
-</div>
-<div class="row">
-  <div class="col-12">
-    <ul class="nav">
-      <li><button>Add Comment</button></li>
-    </ul>
-  </div>
-</div>
+</article>
+

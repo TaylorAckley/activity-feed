@@ -7,6 +7,29 @@ import { Post, PostDocument } from './post.schema';
 
 @Injectable()
 export class PostsService {
+  constructor(
+    @InjectModel(Post.name) private readonly postModel: Model<PostDocument>, private usersService: UsersService) {}
+
+  async create(author: IUser, createPostDto: CreatePostDto) {
+    const user = await this.usersService.upsertUser(author);
+    const createdPost = new this.postModel(createPostDto);
+    createdPost.author = user;
+    createdPost.isComment = false;
+    return await createdPost.save();
+  }
+
+  async findById(id: string) {
+    return await this.postModel.findById(id).populate('author').populate('comments.author');
+  }
+
+  async deleteById(id: string) {
+    return await this.postModel.deleteOne({  _id: id });
+  }
+
+  async fetchAll() {
+    return await this.postModel.find().populate('author').populate('comments.author').sort({ 'metadata.createdAt': -1 });
+  }
+
   unlikePost(id: string) {
     throw new Error('Method not implemented.');
   }
@@ -19,32 +42,16 @@ export class PostsService {
   likePost(id: string) {
     throw new Error('Method not implemented.');
   }
-  createComment(id: string, createCommentDto: any) {
-    throw new Error('Method not implemented.');
+  async createComment(id: string, author: IUser, createCommentDto: any) {
+    const user = await this.usersService.upsertUser(author);
+    const createdComment = new this.postModel(createCommentDto);
+    createdComment.author = user;
+    createdComment.isComment = true;
+    const post = await this.postModel.findById(id);
+    post.comments.push(createdComment);
+    return await post.save();
   }
   updateById(id: string) {
     throw new Error('Method not implemented.');
-  }
-  constructor(
-    @InjectModel(Post.name) private readonly postModel: Model<PostDocument>, private usersService: UsersService) {}
-
-  async create(author: IUser, createPostDto: CreatePostDto) {
-    const user = await this.usersService.upsertUser(author);
-    const createdPost = new this.postModel(createPostDto);
-    createdPost.author = user;
-    createdPost.isComment = true;
-    return await createdPost.save();
-  }
-
-  async findById(id: string) {
-    return await this.postModel.findById(id);
-  }
-
-  async deleteById(id: string) {
-    return await this.postModel.deleteOne({  _id: id });
-  }
-
-  async fetchAll() {
-    return await this.postModel.find().populate('author').sort({ createdAt: 1 });
   }
 }

@@ -24,6 +24,9 @@ import { FeedComponent } from './core/components/posts/feed/feed.component';
 import { PostComponent } from './core/components/posts/post/post.component';
 import { PostsContainerComponent } from './core/components/posts/posts-container/posts-container.component';
 import { FormsModule } from '@angular/forms';
+import { NewCommentComponent } from './core/components/posts/new-comment/new-comment.component';
+import { CommentComponent } from './core/components/posts/comment/comment.component';
+import { CommentContainerComponent } from './core/components/posts/comment-container/comment-container.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,9 @@ import { FormsModule } from '@angular/forms';
     FeedComponent,
     PostComponent,
     PostsContainerComponent,
+    NewCommentComponent,
+    CommentComponent,
+    CommentContainerComponent,
   ],
   imports: [
     BrowserModule,

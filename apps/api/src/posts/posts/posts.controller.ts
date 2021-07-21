@@ -3,6 +3,7 @@ import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateCommentDto, CreatePostDto, UpdateCommentDto } from '@activity-feed/api-interfaces';
 import { CustomRequest } from '../../app/core/extensions/custom-request';
+import { UserGuard } from '../../app/core/guards/user.guard';
 
 @Controller('posts')
 @UseGuards(AuthGuard('jwt'))
@@ -14,6 +15,7 @@ export class PostsController {
     return await this.postsService.fetchAll();
   }
 
+  @UseGuards(UserGuard)
   @Get(':id')
   async getPost(@Param('id') id: string) {
     return await this.postsService.findById(id);
@@ -25,19 +27,21 @@ export class PostsController {
 
   }
 
+  @UseGuards(UserGuard)
   @Patch(':id')
   async updatePost(@Param('id') id: string) {
     return await this.postsService.updateById(id);
   }
 
+  @UseGuards(UserGuard)
   @Delete(':id')
   async deletePost(@Param('id') id: string) {
     return await this.postsService.deleteById(id);
   }
 
   @Post(':id/comments')
-  async createComment(@Param('id') id: string, @Body() createCommentDto: CreateCommentDto) {
-    return await this.postsService.createComment(id, createCommentDto);
+  async createComment(@Param('id') id: string, @Req() request: CustomRequest, @Body() createCommentDto: CreateCommentDto) {
+    return await this.postsService.createComment(id, request.user, createCommentDto);
   }
 
   @Patch(':id/comments/:commentId')
@@ -59,7 +63,4 @@ export class PostsController {
   async unlikePost(@Param('id') id: string) {
     return await this.postsService.unlikePost(id);
   }
-
-
-
 }

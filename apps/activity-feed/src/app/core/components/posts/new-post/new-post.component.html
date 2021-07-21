@@ -1,6 +1,6 @@
-<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-inline">
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-inline" id="new-post-form">
   <div class="form-group col-11">
-    <input type="text" class="form-control col-12" placeholder="Write your message..." #newpost id="newpost" [(ngModel)]="text" name="newPost">
+    <input type="text" class="form-control col-12" placeholder="Got something on your mind?" #newpost id="newpost" [(ngModel)]="text" name="newPost">
   </div>
-  <button type="submit" class="btn btn-primary">Post</button>
+  <button type="submit" class="btn btn-primary submit-new-post">Post</button>
 </form>

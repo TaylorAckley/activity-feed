@@ -2,3 +2,12 @@
 
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+
+
+html {
+  font-size: 18px;
+}
+
+main {
+  padding-top: 4em;
+}
