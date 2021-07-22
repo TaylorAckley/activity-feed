@@ -1,11 +1,11 @@
 <div class="comment-container d-flex justify-content-center flex-column">
   <small class="comment-count text-center mt-3 mb-3" [ngPlural]="post.comments.length">
-    <ng-template ngPluralCase="=0">{{post.comments.length}} No Comments</ng-template>
+    <ng-template ngPluralCase="=0">No Comments</ng-template>
     <ng-template ngPluralCase="=1">{{post.comments.length}} Comment</ng-template>
     <ng-template ngPluralCase="other">{{post.comments.length}} Comments</ng-template>
   </small>
-  <ng-container  *ngFor="let comment of post?.comments">
+  <div class="comments-list"  *ngFor="let comment of post?.comments">
     <activity-feed-comment [comment]="comment"></activity-feed-comment>
-  </ng-container>
+  </div>
 </div>
 

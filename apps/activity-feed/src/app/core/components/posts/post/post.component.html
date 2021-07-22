@@ -9,7 +9,7 @@
         <h4 class="display-5">{{post?.author?.name}}</h4>
       </div>
       <div class="col-1 d-flex justify-content-end" id="post-actions">
-        ...
+        <fa-icon [icon]="faEllipsisV">
       </div>
     </div>
     <div class="row">
@@ -19,9 +19,6 @@
     </div>
     <div class="row d-flex justify-content-center new-comment-section" [id]="'post_new_comment_'+post.id">
       <div class="col-10">
-        <!--<ul class="nav">
-          <li><button>Add Comment</button></li>
-        </ul> -->
         <activity-feed-new-comment (newComment)="refetchSelf()" [post]="post"></activity-feed-new-comment>
       </div>
     </div>

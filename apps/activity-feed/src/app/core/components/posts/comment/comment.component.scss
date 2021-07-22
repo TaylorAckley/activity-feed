@@ -5,10 +5,7 @@
 
 .comment {
   min-height: 2em;
-  border-width: 2px;
-  border-style: solid;
-  border-color: var(--gray);
-  padding: 5px;
-  border-radius: 5px;
-
+  border-bottom: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: var(--gray-light);
 }

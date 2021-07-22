@@ -40,4 +40,5 @@ Thumbs.db
 
 .env
 #**/config.json
+**/nx.json
 nx.json
