@@ -4,4 +4,20 @@
   border-color: var(--gray);
   padding: 5px;
   border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  .comment-wrapper {
+    border-bottom: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--gray-light);
+  }
+
+  .comment-wrapper:last-child {
+    border-bottom: none;
+  }
+
 }
+
+

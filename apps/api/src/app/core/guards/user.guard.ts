@@ -9,8 +9,6 @@ export class UserGuard implements CanActivate {
     context: ExecutionContext,
   ) {
     const ctx = context.switchToHttp().getRequest();
-    console.log(ctx.params);
-    console.log(ctx.user);
     const id = ctx.params?.id ?? null;
     if(id) {
       const post = await this.postsService.findById(id);

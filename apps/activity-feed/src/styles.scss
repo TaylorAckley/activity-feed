@@ -1,13 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 
+$theme-colors: (
+  "primary": #0081CF,
+  "secondary": #845EC2
+);
+
+
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
+@import '~ngx-toastr/toastr';
 
-
-html {
+:root {
   font-size: 18px;
+  --primary: #0081CF;
+  --secondary: #845EC2;
 }
 
 main {
   padding-top: 4em;
+}
+
+.pointer, .clickable {
+  cursor: pointer;
 }

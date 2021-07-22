@@ -1,14 +1,24 @@
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="main-nav">
   <div class="container">
-      <a class="navbar-brand align-content-top" routerLink="/">Activity Feed</a>
-      <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isMenuCollapsed = !isMenuCollapsed" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><fa-icon class="ml-1" [icon]="faBars"></fa-icon></button>
-      <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
-          <ul class="navbar-nav ml-auto d-flex align-content-middle" *ngIf="(authState$ | async) as auth" id="menu">
-              <li class="nav-item" id="user-name" *ngIf="!auth.user?.picture"><a class="nav-link pointer">Hello, {{auth.user.name}}</a></li>
-              <li class="nav-item user-avatar d-flex align-self-center" *ngIf="auth.user.picture">
-                <img [src]="auth.user.picture" alt="User's profile picture" class="rounded-circle img-fluid profile-picture"/></li>
-              <li class="nav-item" id="logout"><a class="nav-link pointer btn btn-small">Logout</a></li>
-          </ul>
-      </div>
+    <a class="navbar-brand align-content-top" routerLink="/">Activity Feed</a>
+    <div class="collapse navbar-collapse" [ngbCollapse]="isMenuCollapsed">
+      <ul
+        class="navbar-nav ml-auto d-flex align-content-middle"
+        *ngIf="authState$ | async as auth"
+        id="menu"
+      >
+        <li class="nav-item user-avatar d-flex align-self-center"  ngbDropdown>
+          <span class="nav-link pointer text-primary" *ngIf="!auth.user?.picture && auth.user.name" ngbDropdownToggle>Hello, {{ auth.user.name }}</span>
+              <img ngbDropdownToggle *ngIf="auth.user.picture"
+              [src]="auth.user.picture"
+              alt="User's profile picture"
+              class="rounded-circle img-fluid profile-picture"
+            />
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button ngbDropdownItem (click)="logout()">Logout</button>
+            </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>

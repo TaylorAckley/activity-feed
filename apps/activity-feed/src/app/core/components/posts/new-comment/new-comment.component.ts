@@ -18,7 +18,7 @@ export class NewCommentComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(f: NgForm): void {
-    const link = this.post?.actions?.find(link => link.rel === LinkRel.addComment);
+    const link = this.post?.links?.find(link => link.rel === LinkRel.addComment);
     if(link) {
       this.linksService.xhr(link, { text: this.text }).subscribe(res => this.onNewComment(f));
     }

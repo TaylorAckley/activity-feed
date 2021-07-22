@@ -11,10 +11,10 @@ import { Component, Input, OnInit } from '@angular/core';
         state('in', style({ transform: 'translateX(0)' })),
         transition('void => *', [
           style({ transform: 'translateX(-100%)' }),
-          animate(100)
+          animate(250)
         ]),
         transition('* => void', [
-          animate(100, style({ transform: 'translateX(100%)' }))
+          animate(250, style({ transform: 'translateX(100%)' }))
         ])
       ])
     ]
@@ -26,6 +26,11 @@ export class FeedComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onDeletePost(deletedPost: IPost) {
+    console.log(deletedPost);
+    this.posts = this.posts.filter(p => p.id !== deletedPost.id);
   }
 
 }

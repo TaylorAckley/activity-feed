@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '@auth0/auth0-angular';
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { select, Store } from '@ngrx/store';
@@ -17,9 +18,13 @@ export class TopNavComponent implements OnInit {
   faBars = faBars;
   authState$ = this.store.pipe(select(selectAuthState));
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private authService: AuthService) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.authService.logout();
   }
 
 }

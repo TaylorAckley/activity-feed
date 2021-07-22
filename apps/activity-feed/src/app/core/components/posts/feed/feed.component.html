@@ -1,5 +1,5 @@
 <ul class="list-group" *ngFor="let p of posts" id="feed">
   <li class="list-group-item mb-3 post-item border-0" [@flyInOut]="'in'">
-    <activity-feed-post [post]="p"></activity-feed-post>
+    <activity-feed-post [post]="p" (deletedPost)="onDeletePost($event)"></activity-feed-post>
   </li>
 </ul>

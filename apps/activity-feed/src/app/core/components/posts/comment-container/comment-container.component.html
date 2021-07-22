@@ -1,11 +1,19 @@
 <div class="comment-container d-flex justify-content-center flex-column">
-  <small class="comment-count text-center mt-3 mb-3" [ngPlural]="post.comments.length">
-    <ng-template ngPluralCase="=0">No Comments</ng-template>
-    <ng-template ngPluralCase="=1">{{post.comments.length}} Comment</ng-template>
-    <ng-template ngPluralCase="other">{{post.comments.length}} Comments</ng-template>
-  </small>
-  <div class="comments-list"  *ngFor="let comment of post?.comments">
-    <activity-feed-comment [comment]="comment"></activity-feed-comment>
+  <span class="d-flex flex-row justify-content-center my-3 align-content-middle">
+    <small class="comment-count text-center d-inline-block mr-3 mt-1" [ngPlural]="post.comments.length">
+      <ng-template ngPluralCase="=0">No Comments</ng-template>
+      <ng-template ngPluralCase="=1">{{post.comments.length}} Comment</ng-template>
+      <ng-template ngPluralCase="other">{{post.comments.length}} Comments</ng-template>
+    </small>
+    <span class="like-post d-inline-block clickable" [ngbTooltip]="getLikeText()" (click)="handleLikeClick()">
+      <fa-icon [icon]="faThumbsUp" [ngClass]="{ 'text-primary': isLiked }"></fa-icon>
+    </span>
+  </span>
+
+  <div class="comments-list" *ngIf="post.comments.length">
+    <ng-container *ngFor="let comment of post?.comments">
+      <activity-feed-comment class="d-flex justify-content-center comment-wrapper" [comment]="comment"></activity-feed-comment>
+    </ng-container>
   </div>
 </div>
 

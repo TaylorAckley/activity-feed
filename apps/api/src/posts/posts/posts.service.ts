@@ -29,19 +29,25 @@ export class PostsService {
   async fetchAll() {
     return await this.postModel.find().populate('author').populate('comments.author').sort({ 'metadata.createdAt': -1 });
   }
+  async likePost(id: string, user: IUser) {
+    const post = await this.postModel.findById(id);
+    const liker = await this.usersService.upsertUser(user);
+    if(!post.likes.find(like => like.sub === liker.sub)) {
+      post.likes.push(liker);
+      return await post.save();
+    }
+    return Promise.resolve({ message: 'not modified' });
+  }
 
-  unlikePost(id: string) {
-    throw new Error('Method not implemented.');
+  async unlikePost(id: string, user: IUser) {
+    const post = await this.postModel.findById(id);
+    if(post.likes.length && post.likes.find(like => like.sub === user.sub)) {
+      post.likes =  post.likes.filter(like => like.sub !== user.sub);
+      return await post.save();
+    }
+    return Promise.resolve({ message: 'not modified' });
   }
-  updateComment(id: string, commentId: string, updateCommentDto: any) {
-    throw new Error('Method not implemented.');
-  }
-  deleteComment(id: string, commentId: string) {
-    throw new Error('Method not implemented.');
-  }
-  likePost(id: string) {
-    throw new Error('Method not implemented.');
-  }
+
   async createComment(id: string, author: IUser, createCommentDto: any) {
     const user = await this.usersService.upsertUser(author);
     const createdComment = new this.postModel(createCommentDto);
@@ -51,7 +57,17 @@ export class PostsService {
     post.comments.push(createdComment);
     return await post.save();
   }
-  updateById(id: string) {
+  async updateById(id: string, updatePostDto: any) {
+    const post = await this.postModel.findById(id);
+    post.text = updatePostDto.text;
+    return await post.save();
+  }
+
+  updateComment(id: string, commentId: string, updateCommentDto: any) {
     throw new Error('Method not implemented.');
   }
+  deleteComment(id: string, commentId: string) {
+    throw new Error('Method not implemented.');
+  }
+
 }

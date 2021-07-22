@@ -1,7 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
-import { CreateCommentDto, CreatePostDto, UpdateCommentDto } from '@activity-feed/api-interfaces';
+import { CreateCommentDto, CreatePostDto, UpdateCommentDto, UpdatePostDto } from '@activity-feed/api-interfaces';
 import { CustomRequest } from '../../app/core/extensions/custom-request';
 import { UserGuard } from '../../app/core/guards/user.guard';
 
@@ -29,8 +29,8 @@ export class PostsController {
 
   @UseGuards(UserGuard)
   @Patch(':id')
-  async updatePost(@Param('id') id: string) {
-    return await this.postsService.updateById(id);
+  async updatePost(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
+    return await this.postsService.updateById(id, updatePostDto);
   }
 
   @UseGuards(UserGuard)
@@ -54,13 +54,13 @@ export class PostsController {
     return await this.postsService.deleteComment(id, commentId);
   }
 
-  @Patch(':id/likes')
-  async likePost(@Param('id') id: string) {
-    return await this.postsService.likePost(id);
+  @Patch(':id/like')
+  async likePost(@Param('id') id: string, @Req() request: CustomRequest) {
+    return await this.postsService.likePost(id, request.user);
   }
 
-  @Delete(':id/likes')
-  async unlikePost(@Param('id') id: string) {
-    return await this.postsService.unlikePost(id);
+  @Delete(':id/like')
+  async unlikePost(@Param('id') id: string, @Req() request: CustomRequest) {
+    return await this.postsService.unlikePost(id, request.user);
   }
 }

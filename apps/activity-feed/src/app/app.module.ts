@@ -27,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 import { NewCommentComponent } from './core/components/posts/new-comment/new-comment.component';
 import { CommentComponent } from './core/components/posts/comment/comment.component';
 import { CommentContainerComponent } from './core/components/posts/comment-container/comment-container.component';
+import { ToastrModule } from 'ngx-toastr';
+import { XhrErrorInterceptor } from './extensions/xhr-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -73,10 +75,12 @@ import { CommentContainerComponent } from './core/components/posts/comment-conta
       }
     ),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    ToastrModule.forRoot()
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: XhrErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent],
 })

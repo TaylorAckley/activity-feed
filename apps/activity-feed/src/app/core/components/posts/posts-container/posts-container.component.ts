@@ -22,5 +22,4 @@ export class PostsContainerComponent implements OnInit {
   setPosts(posts: IPost[]) {
     this.posts = posts;
   }
-
 }

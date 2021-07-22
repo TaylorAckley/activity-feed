@@ -15,6 +15,13 @@ export interface IBaseFeedItem {
   links?: Array<ILink>;
   actions?: Array<ILink>;
   metadata?: IMetadata;
+  flags?: IPostFlags;
+}
+
+export interface IPostFlags {
+  edited: boolean;
+  hasLikes: boolean;
+  hasComments: boolean;
 }
 
 export type IComment = IBaseFeedItem;
@@ -36,17 +43,23 @@ export interface ILink {
   rel: LinkRel;
   href: string;
   httpMethod: HttpMethod;
+  label?: string;
 }
 
 export class Link implements ILink {
   rel: LinkRel;
   href: string;
   httpMethod: HttpMethod;
+  label?: string;
 
-  constructor(href: string, rel: LinkRel, httpMethod: HttpMethod) {
+  constructor(href: string, rel: LinkRel, httpMethod: HttpMethod, label?: string) {
     this.href = href;
     this.rel = rel;
     this.httpMethod = httpMethod;
+    if(label) {
+      this.label = label;
+    }
+
   }
 
 }
@@ -72,6 +85,8 @@ export enum HttpMethod {
 
 
 export type CreatePostDto = IBasePostDto;
+
+export type UpdatePostDto = IBasePostDto;
 
 export type CreateUserDto = IBaseDto;
 
