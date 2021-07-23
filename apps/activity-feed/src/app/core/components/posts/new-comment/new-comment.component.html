@@ -1,6 +1,22 @@
 <form (ngSubmit)="onSubmit(f)" #f="ngForm" class="form-inline new-comment-form">
   <div class="form-group col-10">
-    <input type="text" class="form-control form-control-sm col-12 new-comment-input" placeholder="Add a comment" #newcomment id="newcomment" [(ngModel)]="text" name="newComment">
+    <input
+      type="text"
+      class="form-control form-control-sm col-12 new-comment-input"
+      placeholder="Add a comment"
+      #newComment="ngModel"
+      [(ngModel)]="text"
+      name="newComment"
+      required
+      [ngClass]="{ 'is-invalid': f.submitted && newComment.invalid }"
+    />
+    <div *ngIf="f.submitted && newComment.invalid" class="invalid-feedback">
+      <div *ngIf="newComment.errors?.required">
+        Write a comment before submitting.
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-secondary btn-sm submit-new-comment">Post</button>
+  <button type="submit" class="btn btn-secondary btn-sm submit-new-comment">
+    Comment
+  </button>
 </form>

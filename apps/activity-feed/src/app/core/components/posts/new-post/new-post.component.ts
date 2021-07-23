@@ -17,6 +17,9 @@ export class NewPostComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(f: NgForm) {
+    if(!this.text) {
+      return;
+    }
       this.postsService.createPost({ text: this.text } as CreatePostDto).subscribe((res: any) => this.onNewPost(f))
   }
 
