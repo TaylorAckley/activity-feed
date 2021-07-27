@@ -1,21 +1,23 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CreateCommentDto, CreatePostDto, UpdateCommentDto, UpdatePostDto } from '@activity-feed/api-interfaces';
 import { CustomRequest } from '../../app/core/extensions/custom-request';
 import { UserGuard } from '../../app/core/guards/user.guard';
+import { TransformPostInterceptor } from '../../app/core/extensions/transform-post';
 
 @Controller('posts')
 @UseGuards(AuthGuard('jwt'))
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
+  @UseInterceptors(TransformPostInterceptor)
   @Get()
   async fetchAll() {
     return await this.postsService.fetchAll();
   }
 
-  @UseGuards(UserGuard)
+  @UseInterceptors(TransformPostInterceptor)
   @Get(':id')
   async getPost(@Param('id') id: string) {
     return await this.postsService.findById(id);
@@ -64,3 +66,7 @@ export class PostsController {
     return await this.postsService.unlikePost(id, request.user);
   }
 }
+function TransformInterceptor(TransformInterceptor: any) {
+  throw new Error('Function not implemented.');
+}
+

@@ -29,6 +29,8 @@ import { CommentComponent } from './core/components/posts/comment/comment.compon
 import { CommentContainerComponent } from './core/components/posts/comment-container/comment-container.component';
 import { ToastrModule } from 'ngx-toastr';
 import { XhrErrorInterceptor } from './extensions/xhr-error.interceptor';
+import { PostAsideComponent } from './core/components/posts/post-aside/post-aside.component';
+import { UpdatePostComponent } from './core/components/posts/update-post/update-post.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { XhrErrorInterceptor } from './extensions/xhr-error.interceptor';
     NewCommentComponent,
     CommentComponent,
     CommentContainerComponent,
+    PostAsideComponent,
+    UpdatePostComponent,
   ],
   imports: [
     BrowserModule,

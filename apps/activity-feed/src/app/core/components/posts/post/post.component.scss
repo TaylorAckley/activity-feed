@@ -5,3 +5,13 @@
 .post {
   border-radius: 5px;
 }
+
+.author-name {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 75%;
+  @media screen and (max-width: 811px) {
+    font-size: 14px;
+  }
+}

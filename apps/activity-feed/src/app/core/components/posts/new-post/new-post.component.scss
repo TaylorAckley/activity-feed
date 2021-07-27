@@ -7,9 +7,19 @@ form {
   background-repeat: no-repeat;
   padding: 3em;
   border-radius: 5px;
+  @media (max-width: 811px) {
+    padding-left: .3em;
+    padding-right: .3em;
+  }
 }
 
 .submit-new-post {
   font-weight: bold;
   border-width: 2px;
+
+  @media (max-width: 811px) {
+    width: 100%;
+    margin-left: .6em;
+    margin-right: .6em;
+  }
 }

@@ -1,5 +1,5 @@
 import { ILink, IPost, LinkRel } from '@activity-feed/api-interfaces';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { LinksService } from '../../../services/links.service';
 import { first } from 'rxjs/operators';
 import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';;
@@ -9,17 +9,12 @@ import { faEllipsisV } from '@fortawesome/free-solid-svg-icons';;
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.scss']
 })
-export class PostComponent implements OnInit {
+export class PostComponent {
   faEllipsisV = faEllipsisV;
   @Input() post!: IPost;
   @Output() deletedPost = new EventEmitter<IPost>();
   isUpdating = false;
-  updateText!: string;
   constructor(private linksService: LinksService) { }
-
-  ngOnInit(): void {
-    this.updateText = this.post?.text;
-  }
 
   refetchSelf() {
     const link = this.post?.links?.find(link => link.rel === LinkRel.self);
@@ -39,7 +34,6 @@ export class PostComponent implements OnInit {
     } else {
       this.linksService.dispatch(link).subscribe(res => this.onDispatchResponse(link));
     }
-
   }
 
   onDispatchResponse(link: ILink) {
@@ -49,17 +43,5 @@ export class PostComponent implements OnInit {
       this.deletedPost.emit(this.post);
     }
   }
-
-  updatePost() {
-    const link = this.post?.actions?.find(link => link.rel === LinkRel.updatePost);
-    if (link) {
-      this.linksService.dispatch(link, {  text: this.updateText }).pipe(first()).subscribe((post: IPost) => this.onUpdateSuccess(post));
-    }
-  }
-
-  onUpdateSuccess(post: IPost) {
-    this.refetchSelf();
-  }
-
 }
 

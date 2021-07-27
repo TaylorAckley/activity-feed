@@ -1,16 +1,13 @@
 <article class="row post shadow py-3" [id]="'post_'+post.id">
-  <aside class="col-2 d-flex align-content-center flex-column post-aside">
-            <!-- should be its own component -->
-    <img  [src]="post?.author?.picture" [alt]="post?.author?.name" class="rounded-circle img-fluid mx-auto avatar">
-    <small class="d-block w-100 text-muted mt-2 post-timestamp">{{  post?.metadata?.createdAt | date: 'medium' }}</small>
-    <small class="d-block w-100 text-muted mt-2 post-was-edited" *ngIf="post?.flags?.edited">Edited</small>
+  <aside class="col-12 col-md-2 post-aside">
+    <activity-feed-post-aside [post]="post"></activity-feed-post-aside>
   </aside>
-  <div class="col-10 post-body">
+  <div class="col-12 col-md-10 post-body">
     <div class="row">
-      <div class="col-11 post-header">
-        <h4 class="display-5">{{post?.author?.name}}</h4>
+      <div class="col-10 col-md-11 post-header">
+        <h4 class="display-5 author-name">{{post?.author?.name}}</h4>
       </div>
-      <div class="col-1 d-flex justify-content-end" ngbDropdown [id]="'post_'+post.id+'_actions'">
+      <div class="col-md-1 col-2 d-flex justify-content-end" ngbDropdown [id]="'post_'+post.id+'_actions'" *ngIf="post.actions?.length">
         <fa-icon [icon]="faEllipsisV" ngbDropdownToggle class="clickable"></fa-icon>
         <div ngbDropdownMenu aria-labelledby="actions" class="post-actions-dropdown" [id]="'post_'+post.id+'_actions_dropdown'">
           <button ngbDropdownItem  *ngFor="let action of post.actions" (click)="dispatch(action)">{{ action.label }}</button>
@@ -22,23 +19,16 @@
         <p>{{post?.text}}</p>
       </div>
       <div class="col-12 post-text py-2" *ngIf="isUpdating">
-        <!-- should be its own component -->
-        <form (ngSubmit)="updatePost()" #f="ngForm" class="form-inline" [id]="'post_update_form_'+post.id">
-          <div class="form-group col-11">
-            <input type="text" class="form-control col-12" #updatepost [(ngModel)]="updateText" name="updatePost">
-          </div>
-          <button type="submit" class="btn btn-primary update-post btn-sm">Save</button>
-        </form>
-
+        <activity-feed-update-post [post]="post" (updatedPost)="refetchSelf()"></activity-feed-update-post>
       </div>
     </div>
     <div class="row d-flex justify-content-center new-comment-section" [id]="'post_new_comment_'+post.id">
-      <div class="col-10">
+      <div class="col-md-10 col-12">
         <activity-feed-new-comment (newComment)="refetchSelf()" [post]="post"></activity-feed-new-comment>
       </div>
     </div>
     <div class="row d-flex justify-content-center post-comments" [id]="'comment_container_'+post.id">
-      <div class="col-10">
+      <div class="col-12 col-md-10">
         <activity-feed-comment-container (refetch)="refetchSelf()" [post]="post"></activity-feed-comment-container>
       </div>
     </div>

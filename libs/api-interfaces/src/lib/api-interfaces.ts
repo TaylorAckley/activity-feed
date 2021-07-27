@@ -22,6 +22,7 @@ export interface IPostFlags {
   edited: boolean;
   hasLikes: boolean;
   hasComments: boolean;
+  isOwner: boolean;
 }
 
 export type IComment = IBaseFeedItem;

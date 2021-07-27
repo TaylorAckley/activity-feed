@@ -3,7 +3,6 @@ import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { User } from '../users/user.schema';
 import { IBaseFeedItem, IComment, IPost } from '@activity-feed/api-interfaces';
-import { addActions, addLinks } from './decorate-post';
 
 /** Base Schema */
 
@@ -47,18 +46,6 @@ export class Post extends BaseSchema implements IPost {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
-
-PostSchema.virtual('links').get(function() {
-  return addLinks(this);
-});
-
-PostSchema.virtual('actions').get(function() {
-  return addActions(this);
-});
-
-PostSchema.virtual('flags').get(function() {
-  return { edited: this.metadata.updatedAt > this.metadata.createdAt, hasLikes: this.likes.length > 0, hasComments: this.comments.length > 0  };
-});
 
 PostSchema.set('toObject', { getters: true, virtuals: true });
 PostSchema.set('toJSON', { getters: true, virtuals: true });

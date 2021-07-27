@@ -1,0 +1,6 @@
+<form (ngSubmit)="updatePost()" #f="ngForm" class="form-inline" [id]="'post_update_form_'+post.id">
+  <div class="form-group col-11">
+    <input type="text" class="form-control col-12" #updatepost [(ngModel)]="updateText" name="updatePost">
+  </div>
+  <button type="submit" class="btn btn-primary update-post btn-sm">Save</button>
+</form>
